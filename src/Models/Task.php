@@ -5,9 +5,14 @@ use AHT\Core\Model;
 
 class Task extends Model
 {
-    private $id;
-    private $title;
-    private $description;
+    protected $id;
+    protected $title;
+    protected $description;
+
+    public function __construct()
+    {
+        $this->id = uniqid();
+    }
 
     public function setId($id)
     {

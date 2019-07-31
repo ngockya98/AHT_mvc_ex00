@@ -9,9 +9,9 @@ class Router
     {
         $url = trim($url);
 
-        if ($url == "/AHT/MVC/ex0/Webroot/")
+        if ($url == "/AHT/MVC/ex0/src/Webroot/")
         {
-            $request->controller = "tasks";
+            $request->controller = "task";
             $request->action = "index";
             $request->params = [];
         }

@@ -20,22 +20,17 @@ class ResourceModel implements ResourceModelInterface
 	public function add($model)
 	{
 		$propertiesArray = $this->model->getProperties($model);
-
 		$col = "";
 		foreach ($propertiesArray as $key => $value) {
 			$col = $col . $key . ",";
 		}
-		$col = rtrim($col);
+		$col = rtrim($col,',');
 
 		$val = "";
 		foreach ($propertiesArray as $property) {
-			if(is_numeric($property)) {
-				$val = $val . $property . ',';
-			} else {
-				$val = $val . "'" . $property . "',";
-			}
+			$val = $val . $property . ',';
 		}
-		$val = rtrim($val);
+		$val = rtrim($val,',');
 		$sql = "INSERT INTO $this->table ($col) VALUES ($val)";
 		$req = Database::getBdd()->prepare($sql);
 		return $req->execute(); 
@@ -48,14 +43,11 @@ class ResourceModel implements ResourceModelInterface
 		$values = "";
 		foreach ($propertiesArray as $key => $value) {
 			$values = $values . $key;
-			if(is_numeric($value)) {
 				$values = $values . "=" . $value . ",";
-			} else {
-				$values = $values . "='" . $value . "',";
-			}
 		}
-		$values = rtrim($values);
+		$values = rtrim($values,',');
 		$sql = "UPDATE $this->table SET $values WHERE id=" . $id;
+
 		$req = Database::getBdd()->prepare($sql);
 		return $req->execute();
 	}

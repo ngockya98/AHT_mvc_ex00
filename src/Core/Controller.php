@@ -6,12 +6,12 @@ namespace AHT\Core;
         var $vars = [];
         var $layout = "default";
 
-        function set($d)
+        public function set($d)
         {
             $this->vars = array_merge($this->vars, $d);
         }
 
-        function render($filename)
+        public function render($filename)
         {
             extract($this->vars);
             ob_start();
@@ -45,6 +45,12 @@ namespace AHT\Core;
             {
                 $form[$key] = $this->secure_input($value);
             }
+        }
+
+        protected function convertToString($str)
+        {
+            $str = "'" . $str . "'";
+            return $str;
         }
 
     }

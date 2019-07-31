@@ -4,9 +4,10 @@ namespace AHT\Controllers;
 use AHT\Core\Controller;
 use AHT\Models\TaskRepository;
 use AHT\Models\Task;
+
 class TaskController extends Controller
 {
-    function index()
+    public function index()
     {
         $tasks = new TaskRepository();
         $d['tasks'] = $tasks->getAll();
@@ -14,51 +15,46 @@ class TaskController extends Controller
         $this->render("index");
     }
 
-    function create()
+    public function create()
     {
         if (isset($_POST["title"]))
         {
             $task = new TaskRepository();
-
             $objTask = new Task();
-            $objTask->setTitle($_POST["title"]);
-            $objTask->setDescription($_POST["description"]);
-            $objTask->setCreatedAt(date("Y-m-d H-i-s"));
-            $objTask->setUpdatedAt(date("Y-m-d H-i-s"));
-            
-            if ($task->add($objTask))
-            {
-                header("Location: " . WEBROOT . "tasks/index");
-            }
+            $objTask->setTitle($this->convertToString($_POST["title"]));
+            $objTask->setDescription($this->convertToString($_POST["description"]));
+            $objTask->setCreatedAt($this->convertToString(date("Y-m-d H-i-s")));
+            $objTask->setUpdatedAt($this->convertToString(date("Y-m-d H-i-s")));
+            $task->add($objTask);
+            header("Location: " . WEBROOT . "task/index");
         }
-
         $this->render("create");
     }
 
-    function edit($id)
+    public function edit($id)
     {
-        $task= new TaskRepository();
-
+        $task = new TaskRepository();
         $d["task"] = $task->get($id);
-
         if (isset($_POST["title"]))
         {
-            if ($task->edit($id, $_POST["title"], $_POST["description"]))
-            {
-                header("Location: " . WEBROOT . "tasks/index");
-            }
+            $objTask = new Task();
+            $objTask->setId($id);
+            $objTask->setTitle($this->convertToString($_POST["title"]));
+            $objTask->setDescription($this->convertToString($_POST["description"]));
+            $objTask->setCreatedAt($this->convertToString($d['task']['created_at']));
+            $objTask->setUpdatedAt($this->convertToString(date("Y-m-d H-i-s")));
+            $task->edit($objTask);
+            header("Location: " . WEBROOT . "task/index");        
         }
         $this->set($d); 
         $this->render("edit");
     }
 
-    function delete($id)
+    public function delete($id)
     {
         $task = new TaskRepository();
-        if ($task->delete($id))
-        {
-            header("Location: " . WEBROOT . "tasks/index");
-        }
+        $task->delete($id);
+        header("Location: " . WEBROOT . "task/index");
     }
 }
 ?>
