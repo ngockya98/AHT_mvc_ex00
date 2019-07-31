@@ -3,33 +3,36 @@ namespace AHT\Models;
 
 class TaskRepository
 {
+	public $objResourceModel;
+
+	public function __construct()
+	{
+		$this->objResourceModel = new TaskResourceModel();
+	}
+
 	public function add($model)
 	{
-		$objResourceModel = new TaskResourceModel();
-		$objResourceModel->add($model);
+		
+		$this->objResourceModel->add($model);
 	}
 
 	public function edit($model)
 	{
-		$objResourceModel = new TaskResourceModel();
-		$objResourceModel->edit($model);
+		$this->objResourceModel->edit($model);
 	}
 
 	public function delete($id)
 	{
-		$objResourceModel = new TaskResourceModel();
-		$objResourceModel->delete($id);
+		$this->objResourceModel->delete($id);
 	}
 
 	public function get($id)
 	{
-		$objResourceModel = new TaskResourceModel();
-		return $objResourceModel->get($id);
+		return $this->objResourceModel->get($id);
 	}
 
 	public function getAll()
 	{
-		$objResourceModel = new TaskResourceModel();
-		return $objResourceModel->getAll();
+		return $this->objResourceModel->getAll();
 	}
 }

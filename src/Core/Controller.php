@@ -47,11 +47,10 @@ namespace AHT\Core;
             }
         }
 
-        protected function convertToString($str)
-        {
-            $str = "'" . $str . "'";
-            return $str;
-        }
-
+        // protected function convertToString($str)
+        // {
+        //     $str = "'" . $str . "'";
+        //     return $str;
+        // }
     }
 ?>

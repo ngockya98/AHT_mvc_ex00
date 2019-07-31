@@ -9,11 +9,6 @@ class Task extends Model
     protected $title;
     protected $description;
 
-    public function __construct()
-    {
-        $this->id = uniqid();
-    }
-
     public function setId($id)
     {
         $this->id = $id;

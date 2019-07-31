@@ -28,7 +28,7 @@ class ResourceModel implements ResourceModelInterface
 
 		$val = "";
 		foreach ($propertiesArray as $property) {
-			$val = $val . $property . ',';
+			$val = $val . "'" . $property . "',";
 		}
 		$val = rtrim($val,',');
 		$sql = "INSERT INTO $this->table ($col) VALUES ($val)";
@@ -43,7 +43,7 @@ class ResourceModel implements ResourceModelInterface
 		$values = "";
 		foreach ($propertiesArray as $key => $value) {
 			$values = $values . $key;
-				$values = $values . "=" . $value . ",";
+			$values = $values . "='" . $value . "',";
 		}
 		$values = rtrim($values,',');
 		$sql = "UPDATE $this->table SET $values WHERE id=" . $id;

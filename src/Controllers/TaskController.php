@@ -21,10 +21,10 @@ class TaskController extends Controller
         {
             $task = new TaskRepository();
             $objTask = new Task();
-            $objTask->setTitle($this->convertToString($_POST["title"]));
-            $objTask->setDescription($this->convertToString($_POST["description"]));
-            $objTask->setCreatedAt($this->convertToString(date("Y-m-d H-i-s")));
-            $objTask->setUpdatedAt($this->convertToString(date("Y-m-d H-i-s")));
+            $objTask->setTitle($_POST["title"]);
+            $objTask->setDescription($_POST["description"]);
+            $objTask->setCreatedAt(date("Y-m-d H-i-s"));
+            $objTask->setUpdatedAt(date("Y-m-d H-i-s"));
             $task->add($objTask);
             header("Location: " . WEBROOT . "task/index");
         }
@@ -39,10 +39,10 @@ class TaskController extends Controller
         {
             $objTask = new Task();
             $objTask->setId($id);
-            $objTask->setTitle($this->convertToString($_POST["title"]));
-            $objTask->setDescription($this->convertToString($_POST["description"]));
-            $objTask->setCreatedAt($this->convertToString($d['task']['created_at']));
-            $objTask->setUpdatedAt($this->convertToString(date("Y-m-d H-i-s")));
+            $objTask->setTitle($_POST["title"]);
+            $objTask->setDescription($_POST["description"]);
+            $objTask->setCreatedAt($d['task']['created_at']);
+            $objTask->setUpdatedAt(date("Y-m-d H-i-s"));
             $task->edit($objTask);
             header("Location: " . WEBROOT . "task/index");        
         }
